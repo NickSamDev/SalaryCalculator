@@ -1,0 +1,5 @@
+app:
+  verification:
+    max-days: 28
+    min-days: 3
+    max-salary: 1000000
