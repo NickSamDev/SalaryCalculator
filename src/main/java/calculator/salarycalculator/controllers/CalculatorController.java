@@ -4,7 +4,7 @@ import calculator.salarycalculator.dto.CalculatorRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import calculator.salarycalculator.service.VacationPayServiceImpl;
@@ -28,7 +28,7 @@ public class CalculatorController {
             @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate)
     {
-        logger.info("Новый запрос: {}, {}, {}, {}", averageSalary, vacationDuration, startDate, endDate);
+        logger.info("Запрос расчета отпускных (/calculate): {}, {}, {}, {}", averageSalary, vacationDuration, startDate, endDate);
         CalculatorRequest request = new CalculatorRequest(averageSalary, vacationDuration, startDate, endDate);
         return ResponseEntity.ok(service.calculate(request));
     }

@@ -14,10 +14,15 @@ public class CalculatorControllerAdvice {
     private static final Logger logger = LoggerFactory.getLogger(CalculatorControllerAdvice.class);
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<CalculatorResponseError> handleException(IllegalArgumentException ex) {
-        logger.error("Ошибка валидации: {}", ex.getMessage());
-        CalculatorResponseError calculatorResponseError = new CalculatorResponseError("validation", "400", "Ошибка аргумента: " + ex.getMessage());
-        return new ResponseEntity<>(calculatorResponseError, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> handleException(IllegalArgumentException ex) {
+        logger.error("Ошибка ввода данных: {}", ex.getMessage());
+               return new ResponseEntity<>("Ошибка ввода данных: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<String> handleException(ValidationException ex) {
+        logger.error("Ошибка валиадации данных: {}", ex.getMessage());
+        return new ResponseEntity<>("Ошибка валидации данных: {}" + ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
@@ -29,7 +34,7 @@ public class CalculatorControllerAdvice {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<String> handleBadDate(MethodArgumentTypeMismatchException ex) {
         return ResponseEntity.badRequest()
-                .body("Ошибка в параметре '" + ex.getName() + "': используйте формат ГГГГ-ММ-ДД");
+                .body("Ошибка в параметре '" + ex.getName() + ex.getMessage());
     }
 }
 

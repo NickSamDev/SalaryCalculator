@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 
-import static calculator.salarycalculator.util.CalendarUtil.AVERAGE_DAYS_IN_MONTH;
+import static calculator.salarycalculator.util.Holiday.AVERAGE_DAYS_IN_MONTH;
 
 @Service
 public class VacationPayServiceImpl implements VacationPayService {
@@ -26,7 +26,7 @@ public class VacationPayServiceImpl implements VacationPayService {
         return calculateVacationPay(calculatorRequest);
     }
 
-    private int calculateWorkingDays(CalculatorRequest calculatorRequest) {
+    private int countWorkingDays(CalculatorRequest calculatorRequest) {
         int workingDays = 0;
 
         if(calculatorRequest.getEndDate() != null && calculatorRequest.getStartDate() != null) {
@@ -48,7 +48,7 @@ public class VacationPayServiceImpl implements VacationPayService {
         if (calculatorRequest.getEndDate() != null && calculatorRequest.getStartDate() != null) {
             return BigDecimal.valueOf(calculatorRequest.getAverageSalary())
                     .divide(AVERAGE_DAYS_IN_MONTH, 10, RoundingMode.HALF_UP)
-                    .multiply(BigDecimal.valueOf(calculateWorkingDays(calculatorRequest)))
+                    .multiply(BigDecimal.valueOf(countWorkingDays(calculatorRequest)))
                     .setScale(2, RoundingMode.HALF_EVEN);
         } else return BigDecimal.valueOf(calculatorRequest.getAverageSalary())
                 .divide(AVERAGE_DAYS_IN_MONTH, 10, RoundingMode.HALF_UP)
