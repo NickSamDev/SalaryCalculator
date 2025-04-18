@@ -16,7 +16,7 @@ public class CalculatorControllerAdvice {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleException(IllegalArgumentException ex) {
         logger.error("Ошибка ввода данных: {}", ex.getMessage());
-               return new ResponseEntity<>("Ошибка ввода данных: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Ошибка ввода данных: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ValidationException.class)
@@ -26,7 +26,7 @@ public class CalculatorControllerAdvice {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleArgumentNotFound(Exception ex){
+    public ResponseEntity<String> handleArgumentNotFound(Exception ex) {
         logger.error("Непредвиденная ошибка: {}", ex.getMessage());
         return new ResponseEntity<>("Непредвиденная ошибка: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
     }

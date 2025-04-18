@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 
-public class CalculatorRequest
-{
+public class CalculatorRequest {
     private Double averageSalary;
 
     private Integer vacationDuration;
